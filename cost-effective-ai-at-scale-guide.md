@@ -50,7 +50,20 @@ This represents a 75% token reduction for this single log line (from 40 tokens t
 - Annual savings: $900,000  
 - New annual cost: $3,060,000
 
-## Layer 2: Architecture That Scales Your Savings
+## Layer 2: Model Selection by Application Type
+
+Not all log types require the same level of analytical sophistication. By routing different applications' logs to appropriate models, you can achieve significant cost savings without sacrificing quality where it matters.
+
+Consider a typical enterprise environment: web server access logs, CDN logs, and load balancer metrics often need basic pattern matching and summarization—tasks where Haiku excels at a fraction of the cost. Meanwhile, authentication systems, database transactions, and API gateways require Sonnet's advanced reasoning for detecting subtle security anomalies. Since these are different applications with distinct log formats, caching benefits don't transfer between them, making model selection purely about matching complexity to capability.
+
+With 80% of your critical logs requiring Sonnet's sophistication and 20% suitable for Haiku ($0.088 vs $0.33 per request), your costs drop by an additional 14.7%.
+
+**Cost impact**: Routing 20% of logs to Haiku:
+- Additional monthly savings: $37,383
+- Running total saved: $112,383/month  
+- New annual cost: $2,611,404
+
+## Layer 3: Architecture That Scales Your Savings
 
 ### Prompt Caching (Up to 90% Cost Reduction on Cached Content)
 
@@ -73,13 +86,13 @@ Perfect for:
 - Large-scale data classification
 - Weekly report generation
 
-**Cost impact on our baseline** (assuming 40% of requests can be batched):
-- Batch processing savings: $51,000/month (50% off on 40% of requests)
-- Prompt caching savings: $10,013/month (89% off on 5% of input tokens)
-- Combined savings from Layer 1 + Layer 2: $136,013/month
-- New annual cost: $2,327,850
+**Cost impact** (assuming 40% of requests can be batched):
+- Batch processing savings: $43,523/month (50% off on 40% of requests)
+- Prompt caching savings: $8,716/month (89% off on 5% of input tokens)
+- Combined savings from Layers 1-3: $164,622/month
+- New annual cost: $1,984,557
 
-## Layer 3: Query Grouping (80-90% Cost Reduction on Shared Context)
+## Layer 4: Query Grouping (Cost Reduction on Shared Context)
 
 If you're processing tasks with less data per request (customer support tickets, for example) but a higher volume of requests, you can group those queries together to save on costs. Instead of processing customer tickets individually, each with 2,000 tokens of few-shot examples, group them.
 
@@ -94,28 +107,11 @@ Few-shot examples are sample input-output pairs you provide to show Claude how t
 Using [function calling to structure outputs](https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/increase-consistency) as arrays, you maintain individual ticket handling while dramatically reducing redundant context.
 
 **Cost impact**: Assuming 30% of requests can be grouped with 4.5% efficiency:
-- Additional monthly savings: $2,619
-- Running total saved: $138,632/month
-- New annual cost: $2,296,424
+- Additional monthly savings: $2,233
+- Running total saved: $166,855/month
+- New annual cost: $1,957,765
 
-## Layer 4: Task Decomposition with Model Selection
-
-Not every task requires your most powerful model. By decomposing complex workflows and routing appropriately, you unlock significant savings.
-
-Consider log analysis routing:
-1. Claude 3.5 Haiku ($0.80/MTok input, $4/MTok output): Handle straightforward log analysis for regular patterns
-2. Claude 3.5 Sonnet ($3/MTok input, $15/MTok output): Reserved for complex anomalies and security incidents
-
-With proper routing:
-- 70% of logs show standard patterns → Route to Haiku (73% cost reduction)
-- 30% require advanced analysis → Keep with Sonnet
-
-**Cost impact**: Using Haiku for 70% of workload:
-- Additional monthly savings: $97,789
-- Running total saved: $236,421/month  
-- New annual cost: $1,122,951
-
-## Layer 5: Enterprise Scale Optimizations
+## Additional Enterprise Scale Optimizations
 
 ### Provisioned Throughput Units (PTUs)
 
@@ -123,17 +119,19 @@ For predictable, high-volume workloads, PTUs offer fixed-cost pricing with guara
 
 ### Model Distillation
 
-Anthropic's model distillation (now in preview on Amazon Bedrock) transfers Claude 3.5 Sonnet's intelligence to Claude 3 Haiku's speed and price point. For specific tasks, you get Sonnet-level accuracy at Haiku prices—a potential 75% cost reduction with no performance sacrifice.
+Anthropic's model distillation (now in preview on Amazon Bedrock) transfers Claude 3.5 Sonnet's intelligence to Claude 3 Haiku's speed and price point. For specific tasks, you get Sonnet-level accuracy at Haiku prices—a potential 73% cost reduction with no performance sacrifice.
 
 ## Conclusion: Compound Savings at Scale
 
-Through systematic optimization, we've reduced annual AI costs from $3,960,000 to $1,122,951—a **72% reduction** while maintaining or improving performance:
+Through systematic optimization, we've reduced annual AI costs from $3,960,000 to $1,957,765—a **51% reduction** while maintaining or improving performance:
 
 1. **Data Preparation**: 23% base reduction → $3,060,000
-2. **Caching + Batching**: 24% additional reduction → $2,327,850  
-3. **Query Grouping**: 1.4% additional reduction → $2,296,424
-4. **Model Selection**: 51% additional reduction → $1,122,951
+2. **Model Selection**: 15% additional reduction → $2,611,404
+3. **Caching + Batching**: 24% additional reduction → $1,984,557
+4. **Query Grouping**: 1.4% additional reduction → $1,957,765
 
-These optimizations compound. With larger token volumes, model selection becomes your biggest lever—contributing over half the total savings. Start with data prep as your foundation, implement architectural improvements like caching and batching, then focus heavily on routing requests to the right model for the task.
+These optimizations compound. Start with data preparation as your foundation, then make smart model choices based on your application types. Architectural improvements like caching and batching provide substantial additional savings, while query grouping offers incremental benefits.
+
+The key insight: model selection early in your optimization stack maximizes the impact of all subsequent optimizations. By routing even 20% of your workload to more cost-effective models, you create a multiplier effect on every downstream saving. Beyond these core optimizations, consider advanced options like PTUs and model distillation for specific use cases.
 
 Remember, the goal isn't just cost reduction—it's sustainable scaling. These techniques ensure your AI capabilities can grow with your business without breaking the budget.
